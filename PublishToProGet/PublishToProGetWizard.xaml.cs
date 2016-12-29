@@ -361,7 +361,19 @@ namespace PublishToProGet
             var project = ProjectCollection.GlobalProjectCollection.GetLoadedProjects(this.dteProject.FullName).FirstOrDefault();
             if (project != null)
             {
-                return project.Build();
+                IVsOutputWindowPane buildOutputWindow = null;
+                Dispatcher.Invoke(() =>
+                {
+                    var shell = (IVsUIShell)this.ServiceProvider.GetService(typeof(SVsUIShell));
+                    var hr = shell.FindToolWindow((uint)__VSFINDTOOLWIN.FTW_fFindFirst, VSConstants.StandardToolWindows.Output, out IVsWindowFrame outputFrame);
+                    ErrorHandler.ThrowOnFailure(hr);
+                    outputFrame.ShowNoActivate();
+                    var outputWindow = (IVsOutputWindow)this.ServiceProvider.GetService(typeof(SVsOutputWindow));
+                    hr = outputWindow.GetPane(VSConstants.OutputWindowPaneGuid.BuildOutputPane_guid, out buildOutputWindow);
+                    ErrorHandler.ThrowOnFailure(hr);
+                    buildOutputWindow.Activate();
+                });
+                return project.Build(new OutputWindowLogger(buildOutputWindow));
             }
             return true;
         }
