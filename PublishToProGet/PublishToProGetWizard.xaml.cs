@@ -58,7 +58,13 @@ namespace PublishToProGet
             ErrorHandler.ThrowOnFailure(((IVsHierarchy)this.Project).GetProperty((uint)VSConstants.VSITEMID.Root, (int)__VSHPROPID.VSHPROPID_ExtObject, out object projectObject));
             this.dteProject = (EnvDTE.Project)projectObject;
             this.packageName.Text = this.dteProject.Properties.Item("AssemblyName").Value as string ?? this.dteProject.Name;
-            this.packageVersion.Text = this.dteProject.Properties.Item("AssemblyVersion").Value as string ?? "";
+            var version = this.dteProject.Properties.Item("AssemblyVersion").Value as string ?? "";
+            var splitVersion = version.Split('.');
+            if (splitVersion.Length == 4 && splitVersion.All(part => part.All(c => c >= '0' && c <= '9')))
+            {
+                version = string.Join(".", splitVersion, 0, 3);
+            }
+            this.packageVersion.Text = version;
             this.packageDirectory.Text = Path.Combine(Path.GetDirectoryName(dteProject.FullName), this.dteProject.ConfigurationManager?.ActiveConfiguration?.Properties?.Item("OutputPath")?.Value as string ?? "");
         }
 
