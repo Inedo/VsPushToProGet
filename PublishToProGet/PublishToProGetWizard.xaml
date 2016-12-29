@@ -4,9 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PublishToProGet"
-    x:Name="window" x:Class="PublishToProGet.PublishToProGetWizard"
-             mc:Ignorable="d" 
-             d:DesignHeight="400" d:DesignWidth="600" Title="Publish to ProGet" WindowStartupLocation="CenterOwner" Icon="{DynamicResource ProGetIcon}" SizeToContent="WidthAndHeight">
+            x:Name="window" x:Class="PublishToProGet.PublishToProGetWizard"
+            mc:Ignorable="d" d:DesignHeight="400" d:DesignWidth="600" Title="Publish to ProGet" WindowStartupLocation="CenterOwner"
+            Icon="{DynamicResource ProGetIcon}" SizeToContent="WidthAndHeight" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <BitmapImage x:Key="ProGetIcon" UriSource="Resources/proget-icon.ico"/>
@@ -17,7 +17,10 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="26"/>
                 <RowDefinition Height="26"/>
+                <RowDefinition Height="26"/>
+                <RowDefinition Height="26"/>
                 <RowDefinition/>
+                <RowDefinition Height="26"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -28,7 +31,13 @@
             <Label Content="Universal feed URL" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,4,0" Grid.Row="1"/>
             <local:PlaceholderTextBox x:Name="universalFeedURL" TextWrapping="Wrap" Grid.Column="1" Padding="0,4" TabIndex="1" Grid.Row="1"/>
             <Label Content="http://proget-server/upack/FeedName" Grid.Column="1" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" FontStyle="Italic" IsHitTestVisible="False" Visibility="{Binding ShouldShowPlaceholder, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=universalFeedURL}" Grid.Row="1" />
-            <Button Content="Next" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Grid.Row="3" Grid.ColumnSpan="2" Margin="8" IsDefault="True" TabIndex="2" Click="Page1_Next"/>
+            <Label Content="Username" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,4,0" Grid.Row="2"/>
+            <local:PlaceholderTextBox x:Name="universalFeedUser" TextWrapping="Wrap" Grid.Column="1" Padding="0,4" TabIndex="2" Grid.Row="2"/>
+            <Label Content="Anonymous" Grid.Column="1" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" FontStyle="Italic" IsHitTestVisible="False" Visibility="{Binding ShouldShowPlaceholder, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=universalFeedUser}" Grid.Row="2" />
+            <Label Content="Password" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,4,0" Grid.Row="3"/>
+            <PasswordBox x:Name="universalFeedPassword" Grid.Column="1" Padding="0,4" TabIndex="3" Grid.Row="3"/>
+            <Label Content="The default values for this page can be edited in Tools &gt; Options." HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,4,0" Grid.Row="5" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" FontStyle="Italic" Grid.ColumnSpan="2"/>
+            <Button Content="Next" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Grid.Row="6" Grid.ColumnSpan="2" Margin="8" IsDefault="True" TabIndex="4" Click="Page1_Next"/>
         </Grid>
         <Grid x:Name="page2" Visibility="Hidden">
             <Grid.RowDefinitions>
@@ -99,27 +108,34 @@
                 <RowDefinition Height="26"/>
                 <RowDefinition Height="26"/>
                 <RowDefinition Height="26"/>
+                <RowDefinition Height="26"/>
+                <RowDefinition Height="26"/>
                 <RowDefinition/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Label Content="ProGet Information" FontWeight="Bold" Grid.ColumnSpan="2" />
             <Label Content="Universal feed URL" HorizontalContentAlignment="Right" Grid.Row="1" />
             <Label x:Name="confirmUniversalFeedURL" Grid.Column="1" Grid.Row="1" />
-            <Label Content="Package Information" FontWeight="Bold" Grid.Row="2" Grid.ColumnSpan="2" />
-            <Label Content="Package name" HorizontalContentAlignment="Right" Grid.Row="3" />
-            <Label x:Name="confirmPackageName" Grid.Column="1" Grid.Row="3" />
-            <Label Content="Version" HorizontalContentAlignment="Right" Grid.Row="4" />
-            <Label x:Name="confirmPackageVersion" Grid.Column="1" Grid.Row="4" />
-            <Label Content="Files to package" HorizontalContentAlignment="Right" Grid.Row="5" />
-            <Label x:Name="confirmPackageDirectory" Grid.Column="1" Grid.Row="5" />
-            <Label Content="Additional Package Data" FontWeight="Bold" Grid.Row="6" Grid.ColumnSpan="2" />
-            <Label Content="Title" HorizontalContentAlignment="Right" Grid.Row="7" />
-            <Label x:Name="confirmPackageTitle" Grid.Column="1" Grid.Row="7" />
-            <Label Content="Group name" HorizontalContentAlignment="Right" Grid.Row="8" />
-            <Label x:Name="confirmPackageGroupName" Grid.Column="1" Grid.Row="8" />
-            <Label Content="Description" HorizontalContentAlignment="Right" Grid.Row="9" />
-            <Label x:Name="confirmPackageDescription" Grid.Column="1" Grid.Row="9" />
-            <Button Content="Publish" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Grid.Row="10" Grid.ColumnSpan="2" Margin="8" IsDefault="True" TabIndex="1" Click="Page4_Publish"/>
+            <Label Content="Username" HorizontalContentAlignment="Right" Grid.Row="2" />
+            <Label x:Name="confirmUniversalFeedUser" Grid.Column="1" Grid.Row="2" />
+            <Label x:Name="confirmUniversalFeedUserAnonymous" Content="Anonymous" Grid.Column="1" Grid.Row="2" Visibility="Hidden" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" FontStyle="Italic" />
+            <Label Content="Password" HorizontalContentAlignment="Right" Grid.Row="3" />
+            <Label x:Name="confirmUniversalFeedPassword" Content="[hidden]" Grid.Column="1" Grid.Row="3" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" FontStyle="Italic" />
+            <Label Content="Package Information" FontWeight="Bold" Grid.Row="4" Grid.ColumnSpan="2" />
+            <Label Content="Package name" HorizontalContentAlignment="Right" Grid.Row="5" />
+            <Label x:Name="confirmPackageName" Grid.Column="1" Grid.Row="5" />
+            <Label Content="Version" HorizontalContentAlignment="Right" Grid.Row="6" />
+            <Label x:Name="confirmPackageVersion" Grid.Column="1" Grid.Row="6" />
+            <Label Content="Files to package" HorizontalContentAlignment="Right" Grid.Row="7" />
+            <Label x:Name="confirmPackageDirectory" Grid.Column="1" Grid.Row="7" />
+            <Label Content="Additional Package Data" FontWeight="Bold" Grid.Row="8" Grid.ColumnSpan="2" />
+            <Label Content="Title" HorizontalContentAlignment="Right" Grid.Row="9" />
+            <Label x:Name="confirmPackageTitle" Grid.Column="1" Grid.Row="9" />
+            <Label Content="Group name" HorizontalContentAlignment="Right" Grid.Row="10" />
+            <Label x:Name="confirmPackageGroupName" Grid.Column="1" Grid.Row="10" />
+            <Label Content="Description" HorizontalContentAlignment="Right" Grid.Row="11" />
+            <Label x:Name="confirmPackageDescription" Grid.Column="1" Grid.Row="11" />
+            <Button Content="Publish" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Grid.Row="12" Grid.ColumnSpan="2" Margin="8" IsDefault="True" TabIndex="1" Click="Page4_Publish"/>
         </Grid>
         <Grid x:Name="page5" Visibility="Hidden">
             <Grid.RowDefinitions>

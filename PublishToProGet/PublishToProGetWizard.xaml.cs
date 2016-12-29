@@ -1,18 +1,19 @@
 ﻿using EnvDTE;
+using Microsoft.Build.Evaluation;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell.Interop;
-using System;
-using System.IO;
-using System.Linq;
-using System.Windows.Forms;
-using System.ComponentModel;
-using System.IO.Compression;
 using Newtonsoft.Json;
-using Microsoft.Build.Evaluation;
-using System.Threading;
-using System.Windows.Media;
-using System.Net.Http;
+using System;
+using System.ComponentModel;
+using System.IO;
+using System.IO.Compression;
+using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Text;
+using System.Threading;
+using System.Windows.Forms;
+using System.Windows.Media;
 
 namespace PublishToProGet
 {
@@ -37,6 +38,20 @@ namespace PublishToProGet
             {
                 this.Settings = (PublishToProGetSettings)package.GetDialogPage(typeof(PublishToProGetSettings));
                 this.universalFeedURL.Text = this.Settings.DefaultUniversalFeed;
+                this.universalFeedUser.Text = this.Settings.DefaultUserName;
+            }
+
+            if (string.IsNullOrEmpty(this.universalFeedURL.Text))
+            {
+                this.universalFeedURL.Focus();
+            }
+            else if (string.IsNullOrEmpty(this.universalFeedUser.Text))
+            {
+                this.universalFeedUser.Focus();
+            }
+            else
+            {
+                this.universalFeedPassword.Focus();
             }
 
             var dte = (DTE)this.ServiceProvider.GetService(typeof(DTE));
@@ -78,6 +93,7 @@ namespace PublishToProGet
             if (string.IsNullOrEmpty(this.Settings.DefaultUniversalFeed))
             {
                 this.Settings.DefaultUniversalFeed = this.universalFeedURL.Text;
+                this.Settings.DefaultUserName = this.universalFeedUser.Text;
                 this.Settings.SaveSettingsToStorage();
             }
             this.packageName.Focus();
@@ -148,6 +164,18 @@ namespace PublishToProGet
             }
 
             this.confirmUniversalFeedURL.Content = this.universalFeedURL.Text;
+            if (string.IsNullOrEmpty(this.universalFeedUser.Text))
+            {
+                this.confirmUniversalFeedUser.Visibility = System.Windows.Visibility.Hidden;
+                this.confirmUniversalFeedUserAnonymous.Visibility = System.Windows.Visibility.Visible;
+            }
+            else
+            {
+                this.confirmUniversalFeedUser.Content = this.universalFeedUser.Text;
+                this.confirmUniversalFeedUser.Visibility = System.Windows.Visibility.Visible;
+                this.confirmUniversalFeedUserAnonymous.Visibility = System.Windows.Visibility.Hidden;
+            }
+            this.confirmUniversalFeedPassword.Visibility = this.universalFeedPassword.SecurePassword.Length == 0 ? System.Windows.Visibility.Hidden : System.Windows.Visibility.Visible;
             this.confirmPackageName.Content = this.Metadata.Name;
             this.confirmPackageVersion.Content = this.Metadata.Version;
             this.confirmPackageDirectory.Content = this.packageDirectory.Text;
@@ -167,10 +195,12 @@ namespace PublishToProGet
             this.Closing += PreventClose;
             ThreadPool.QueueUserWorkItem(state =>
             {
-                var args = (Tuple<UPackMetadata, string, string>)state;
+                var args = (Tuple<UPackMetadata, string, string, string, string>)state;
                 var metadata = args.Item1;
                 var directoryName = args.Item2;
                 var universalFeedURL = args.Item3;
+                var username = args.Item4;
+                var password = args.Item5;
 
                 var buffer = new byte[8192];
 
@@ -286,6 +316,14 @@ namespace PublishToProGet
                         var request = WebRequest.CreateHttp(universalFeedURL + "/upload");
                         request.Method = HttpMethod.Put.Method;
                         request.ContentType = "application/zip";
+                        if (!string.IsNullOrEmpty(username))
+                        {
+                            var credentialBytes = new byte[Encoding.UTF8.GetByteCount(username) + 1 + Encoding.UTF8.GetByteCount(password)];
+                            var index = Encoding.UTF8.GetBytes(username, 0, username.Length, credentialBytes, 0);
+                            index += Encoding.UTF8.GetBytes(":", 0, 1, credentialBytes, index);
+                            Encoding.UTF8.GetBytes(password, 0, password.Length, credentialBytes, index);
+                            request.Headers.Add(HttpRequestHeader.Authorization, "Basic " + Convert.ToBase64String(credentialBytes));
+                        }
                         Dispatcher.Invoke(() =>
                         {
                             this.status.Content = string.Format("Publishing package to {0}...", universalFeedURL);
@@ -348,7 +386,7 @@ namespace PublishToProGet
                     this.progress.IsIndeterminate = false;
                     this.progress.Value = this.progress.Maximum = 1;
                 });
-            }, new Tuple<UPackMetadata, string, string>(this.Metadata, this.packageDirectory.Text, this.universalFeedURL.Text));
+            }, new Tuple<UPackMetadata, string, string, string, string>(this.Metadata, this.packageDirectory.Text, this.universalFeedURL.Text, this.universalFeedUser.Text, this.universalFeedPassword.Password));
         }
 
         private static void PreventClose(object sender, CancelEventArgs e)
