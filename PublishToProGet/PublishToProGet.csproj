@@ -53,6 +53,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="EmptyStringCollapseConverter.cs" />
     <Compile Include="OutputWindowLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublishToProGetCommand.cs" />
@@ -68,6 +69,12 @@
     </Compile>
     <Compile Include="PlaceholderTextBox.cs" />
     <Compile Include="UPackMetadata.cs" />
+    <Compile Include="WizardFooter.xaml.cs">
+      <DependentUpon>WizardFooter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WizardHeader.xaml.cs">
+      <DependentUpon>WizardHeader.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="proget-icon.ico" />
@@ -228,6 +235,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\proget-icon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WizardFooter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WizardHeader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

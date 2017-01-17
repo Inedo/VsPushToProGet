@@ -421,5 +421,38 @@ namespace PublishToProGet
             }
             return true;
         }
+
+        private void Page2_Previous(object sender, System.Windows.RoutedEventArgs e)
+        {
+            this.page2.Visibility = System.Windows.Visibility.Hidden;
+            this.page1.Visibility = System.Windows.Visibility.Visible;
+
+            if (string.IsNullOrEmpty(this.universalFeedURL.Text))
+            {
+                this.universalFeedURL.Focus();
+            }
+            else if (string.IsNullOrEmpty(this.universalFeedUser.Text))
+            {
+                this.universalFeedUser.Focus();
+            }
+            else
+            {
+                this.universalFeedPassword.Focus();
+            }
+        }
+
+        private void Page3_Previous(object sender, System.Windows.RoutedEventArgs e)
+        {
+            this.page3.Visibility = System.Windows.Visibility.Hidden;
+            this.page2.Visibility = System.Windows.Visibility.Visible;
+            this.packageName.Focus();
+        }
+
+        private void Page4_Previous(object sender, System.Windows.RoutedEventArgs e)
+        {
+            this.page4.Visibility = System.Windows.Visibility.Hidden;
+            this.page3.Visibility = System.Windows.Visibility.Visible;
+            this.packageTitle.Focus();
+        }
     }
 }

@@ -1,0 +1,30 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PublishToProGet"
+             x:Class="PublishToProGet.WizardHeader"
+             mc:Ignorable="d" 
+             d:DesignHeight="82" d:DesignWidth="600">
+    <Grid Height="100">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="5"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="105"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Rectangle Grid.ColumnSpan="2" Fill="#FF35394B"/>
+        <Rectangle Grid.ColumnSpan="2" Grid.Row="1" Fill="#FF3FA9F5"/>
+        <Viewbox Height="50" Margin="15,0,0,0">
+            <Canvas Clip="F1 M 0,0L 35,0L 35,35L 0,35L 0,0" Height="35" Width="35">
+                <Ellipse Fill="#3FA9F5" Height="35" Width="35"/>
+                <Path Fill="#FFFFFF" Data="F1 M 29.4,12.2 L 23.6,6.4 L 17.5,12.5 L 11.4,6.4 L 5.6,12.2 L 17.5,24 17.5,24 L 29.4,12.2" />
+                <Path Fill="#FFFFFF" Data="F1 M 17.5,25.3 L 17.5,25.3 L 8.1,15.9 L 5.6,18.4 L 17.5,30.3 L 17.5,30.3 L 29.4,18.4 L 26.9,15.9 L 17.5,25.3" />
+            </Canvas>
+        </Viewbox>
+        <Label Grid.Column="1" HorizontalAlignment="Left" VerticalContentAlignment="Center" Foreground="White" Content="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:WizardHeader}}}" FontFamily="Karla" FontSize="16"/>
+    </Grid>
+</UserControl>
