@@ -52,11 +52,11 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <local:WizardHeader Grid.ColumnSpan="2" Text="Package Information"/>
-            <Label Content="Package Name" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,4,0" Grid.Row="1"/>
+            <Label Content="Package Name" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,4,0" Grid.Row="1" FontFamily="Karla"/>
             <TextBox x:Name="packageName" TextWrapping="Wrap" Grid.Column="1" Padding="0,4" TabIndex="1" Grid.Row="1" MaxLength="50" VerticalAlignment="Center" Margin="0,0,35,0"/>
-            <Label Content="Version" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,4,0" Grid.Row="2"/>
+            <Label Content="Version" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,4,0" Grid.Row="2" FontFamily="Karla"/>
             <TextBox x:Name="packageVersion" TextWrapping="Wrap" Grid.Column="1" Padding="0,4" TabIndex="2" Grid.Row="2" VerticalAlignment="Center" Margin="0,0,35,0"/>
-            <Label Content="Files to package" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,4,0" Grid.Row="3"/>
+            <Label Content="Files to package" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,4,0" Grid.Row="3" FontFamily="Karla"/>
             <Grid Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Margin="0,0,35,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -81,62 +81,69 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <local:WizardHeader Text="Additional Package Data" Grid.ColumnSpan="2"/>
-            <Label Content="Title" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,4,0" Grid.Row="1"/>
+            <Label Content="Title" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,4,0" Grid.Row="1" FontFamily="Karla"/>
             <local:PlaceholderTextBox x:Name="packageTitle" TextWrapping="Wrap" Grid.Column="1" Padding="0,4" TabIndex="1" Grid.Row="1" MaxLength="50" VerticalAlignment="Center" Margin="0,0,35,0"/>
             <Label Content="use package name" Grid.Column="1" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" FontStyle="Italic" IsHitTestVisible="False" Visibility="{Binding ShouldShowPlaceholder, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=packageTitle}" Grid.Row="1" VerticalAlignment="Center" />
-            <Label Content="Group name" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,4,0" Grid.Row="2"/>
+            <Label Content="Group name" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,4,0" Grid.Row="2" FontFamily="Karla"/>
             <local:PlaceholderTextBox x:Name="packageGroupName" TextWrapping="Wrap" Grid.Column="1" Padding="0,4" TabIndex="2" Grid.Row="2" Margin="0,0,35,0" VerticalAlignment="Center"/>
             <Label Content="no group name" Grid.Column="1" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" FontStyle="Italic" IsHitTestVisible="False" Visibility="{Binding ShouldShowPlaceholder, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=packageGroupName}" Grid.Row="2" VerticalAlignment="Center" />
-            <Label Content="Description" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,4,0" Grid.Row="3"/>
+            <Label Content="Description" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,4,0" Grid.Row="3" FontFamily="Karla"/>
             <local:PlaceholderTextBox x:Name="packageDescription" TextWrapping="Wrap" Grid.Column="1" Padding="0,4" TabIndex="3" Grid.Row="3" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Grid.RowSpan="2" Margin="0,7,35,35"/>
             <Label Content="none" Grid.Column="1" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" FontStyle="Italic" IsHitTestVisible="False" Visibility="{Binding ShouldShowPlaceholder, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=packageDescription}" Grid.Row="3" VerticalAlignment="Center" />
             <local:WizardFooter PrimaryButtonLabel="Next" PrimaryButtonClicked="Page3_Next" TabIndex="4" Grid.Row="5" Grid.ColumnSpan="2" SecondaryButtonLabel="Previous" SecondaryButtonClicked="Page3_Previous"/>
         </Grid>
         <Grid x:Name="page4" Visibility="Hidden">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="25"/>
                 <RowDefinition/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <local:WizardHeader Text="ProGet Confirmation" Grid.ColumnSpan="2"/>
-            <Label Content="ProGet Information" FontWeight="Bold" Grid.ColumnSpan="2" Grid.Row="1" BorderThickness="35,0,0,0" VerticalContentAlignment="Bottom" />
-            <Label Content="Universal feed URL:" HorizontalContentAlignment="Right" Grid.Row="2" Padding="5,0" />
-            <Label x:Name="confirmUniversalFeedURL" Grid.Column="1" Grid.Row="2" Padding="5,0" />
-            <Label Content="Username:" HorizontalContentAlignment="Right" Grid.Row="3" Padding="5,0" />
-            <Label x:Name="confirmUniversalFeedUser" Grid.Column="1" Grid.Row="3" Padding="5,0" />
-            <Label x:Name="confirmUniversalFeedUserAnonymous" Content="Anonymous" Grid.Column="1" Grid.Row="3" Visibility="Hidden" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" FontStyle="Italic" Padding="5,0" ScrollViewer.CanContentScroll="True" />
-            <Label Content="Password:" HorizontalContentAlignment="Right" Grid.Row="4" Padding="5,0" />
-            <Label x:Name="confirmUniversalFeedPassword" Content="[hidden]" Grid.Column="1" Grid.Row="4" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" FontStyle="Italic" Padding="5,0" />
-            <Label Content="Package Information" FontWeight="Bold" Grid.Row="5" Grid.ColumnSpan="2" BorderThickness="35,0,0,0" VerticalContentAlignment="Bottom" />
-            <Label Content="Package name:" HorizontalContentAlignment="Right" Grid.Row="6" Padding="5,0" />
-            <Label x:Name="confirmPackageName" Grid.Column="1" Grid.Row="6" Padding="5,0" />
-            <Label Content="Version:" HorizontalContentAlignment="Right" Grid.Row="7" Padding="5,0" />
-            <Label x:Name="confirmPackageVersion" Grid.Column="1" Grid.Row="7" Padding="5,0" />
-            <Label Content="Files to package:" HorizontalContentAlignment="Right" Grid.Row="8" Padding="5,4,5,0" />
-            <Label x:Name="confirmPackageDirectory" Grid.Column="1" Grid.Row="8" Padding="5,0" />
-            <Label Content="Additional Package Data" FontWeight="Bold" Grid.Row="9" Grid.ColumnSpan="2" BorderThickness="35,0,0,0" VerticalContentAlignment="Bottom" />
-            <Label Content="Title:" HorizontalContentAlignment="Right" Grid.Row="10" Padding="5,0" />
-            <Label x:Name="confirmPackageTitle" Grid.Column="1" Grid.Row="10" Padding="5,0" />
-            <Label Content="Group name:" HorizontalContentAlignment="Right" Grid.Row="11" Padding="5,0" />
-            <Label x:Name="confirmPackageGroupName" Grid.Column="1" Grid.Row="11" Padding="5,0" />
-            <Label Content="Description" HorizontalContentAlignment="Right" Grid.Row="12" />
-            <Label x:Name="confirmPackageDescription" Grid.Column="1" Grid.Row="12" />
-            <local:WizardFooter PrimaryButtonLabel="Publish" PrimaryButtonClicked="Page4_Publish" TabIndex="1" Grid.Row="13" Grid.ColumnSpan="2" SecondaryButtonLabel="Previous" SecondaryButtonClicked="Page4_Previous"/>
+            <local:WizardHeader Text="ProGet Confirmation"/>
+            <ScrollViewer Grid.Row="1" Margin="0,-17,0,0" Padding="0,17,0,0" VerticalScrollBarVisibility="Auto">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Content="ProGet Information" FontWeight="Bold" Grid.ColumnSpan="2" BorderThickness="35,0,0,0" VerticalContentAlignment="Bottom" FontFamily="Karla" />
+                    <Label Content="Universal feed URL:" HorizontalContentAlignment="Right" Grid.Row="1" Padding="5,0" FontFamily="Karla" />
+                    <Label x:Name="confirmUniversalFeedURL" Grid.Column="1" Grid.Row="1" Padding="5,0" FontFamily="Karla" />
+                    <Label Content="Username:" HorizontalContentAlignment="Right" Grid.Row="2" Padding="5,0" FontFamily="Karla" />
+                    <Label x:Name="confirmUniversalFeedUser" Grid.Column="1" Grid.Row="2" Padding="5,0" FontFamily="Karla" />
+                    <Label x:Name="confirmUniversalFeedUserAnonymous" Content="Anonymous" Grid.Column="1" Grid.Row="2" Visibility="Hidden" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" FontStyle="Italic" Padding="5,0" ScrollViewer.CanContentScroll="True" FontFamily="Karla" />
+                    <Label Content="Password:" HorizontalContentAlignment="Right" Grid.Row="3" Padding="5,0" FontFamily="Karla" />
+                    <Label x:Name="confirmUniversalFeedPassword" Content="[hidden]" Grid.Column="1" Grid.Row="3" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" FontStyle="Italic" Padding="5,0" FontFamily="Karla" />
+                    <Label Content="Package Information" FontWeight="Bold" Grid.Row="4" Grid.ColumnSpan="2" BorderThickness="35,0,0,0" VerticalContentAlignment="Bottom" FontFamily="Karla" />
+                    <Label Content="Package name:" HorizontalContentAlignment="Right" Grid.Row="5" Padding="5,0" FontFamily="Karla" />
+                    <Label x:Name="confirmPackageName" Grid.Column="1" Grid.Row="5" Padding="5,0" FontFamily="Karla" />
+                    <Label Content="Version:" HorizontalContentAlignment="Right" Grid.Row="6" Padding="5,0" FontFamily="Karla" />
+                    <Label x:Name="confirmPackageVersion" Grid.Column="1" Grid.Row="6" Padding="5,0" FontFamily="Karla" />
+                    <Label Content="Files to package:" HorizontalContentAlignment="Right" Grid.Row="7" Padding="5,0" FontFamily="Karla" />
+                    <Label x:Name="confirmPackageDirectory" Grid.Column="1" Grid.Row="7" Padding="5,0" FontFamily="Karla" />
+                    <Label Content="Additional Package Data" FontWeight="Bold" Grid.Row="8" Grid.ColumnSpan="2" BorderThickness="35,0,0,0" VerticalContentAlignment="Bottom" FontFamily="Karla" />
+                    <Label Content="Title:" HorizontalContentAlignment="Right" Grid.Row="9" Padding="5,0" FontFamily="Karla" />
+                    <Label x:Name="confirmPackageTitle" Grid.Column="1" Grid.Row="9" Padding="5,0" FontFamily="Karla" />
+                    <Label Content="Group name:" HorizontalContentAlignment="Right" Grid.Row="10" Padding="5,0" />
+                    <Label x:Name="confirmPackageGroupName" Grid.Column="1" Grid.Row="10" Padding="5,0" />
+                    <Label Content="Description" HorizontalContentAlignment="Right" Grid.Row="11" FontFamily="Karla" />
+                    <Label x:Name="confirmPackageDescription" Grid.Column="1" Grid.Row="11" FontFamily="Karla" />
+                </Grid>
+            </ScrollViewer>
+            <local:WizardFooter PrimaryButtonLabel="Publish" PrimaryButtonClicked="Page4_Publish" TabIndex="1" Grid.Row="2" SecondaryButtonLabel="Previous" SecondaryButtonClicked="Page4_Previous"/>
         </Grid>
         <Grid x:Name="page5" Visibility="Hidden">
             <Grid.RowDefinitions>
@@ -146,7 +153,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <local:WizardHeader Text="Publishing..."/>
-            <Label x:Name="status" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="Building project..." Grid.Row="1" />
+            <Label x:Name="status" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="Building project..." Grid.Row="1" FontFamily="Karla" />
             <ProgressBar x:Name="progress" IsIndeterminate="True" Grid.Row="2"/>
         </Grid>
     </Grid>

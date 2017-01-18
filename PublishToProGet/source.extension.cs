@@ -11,7 +11,7 @@ namespace PublishToProGet
         public const string Name = "Publish to ProGet";
         public const string Description = @"Publish to ProGet Visual Studio extension";
         public const string Language = "en-US";
-        public const string Version = "1.0.1";
+        public const string Version = "1.0.2";
         public const string Author = "Inedo";
         public const string Tags = "";
     }
