@@ -77,7 +77,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="proget-icon.ico" />
+    <Content Include="proget-icon.ico">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="source.extension.ico">
       <DependentUpon>source.extension.vsixmanifest</DependentUpon>
     </Content>
@@ -224,9 +226,7 @@
     </VSCTCompile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\proget-icon.ico">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
+    <Resource Include="Resources\proget-icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\proget-icon-tiny.png" />
