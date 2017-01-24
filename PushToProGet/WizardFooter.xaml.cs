@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PublishToProGet
+namespace PushToProGet
 {
     /// <summary>
     /// Interaction logic for WizardFooter.xaml

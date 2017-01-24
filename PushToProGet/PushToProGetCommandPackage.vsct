@@ -22,7 +22,7 @@
 
   <!--The Commands section is where commands, menus, and menu groups are defined.
       This section uses a Guid to identify the package that provides the command defined inside it. -->
-  <Commands package="guidPublishToProGetCommandPackage">
+  <Commands package="guidPushToProGetCommandPackage">
     <!-- Inside this section we have different sub-sections: one for the menus, another
     for the menu groups, one for the buttons (the actual commands), one for the combos
     and the last one for the bitmaps used. Each element is identified by a command id that
@@ -36,7 +36,7 @@
          group as the part of a menu contained between two lines. The parent of a group
          must be a menu. -->
     <Groups>
-      <Group guid="guidPublishToProGetCommandPackageCmdSet" id="ProGetMenuGroup" priority="0x0104">
+      <Group guid="guidPushToProGetCommandPackageCmdSet" id="ProGetMenuGroup" priority="0x0104">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE"/>
       </Group>
     </Groups>
@@ -52,13 +52,12 @@
               <CommandFlag>DefaultInvisible</CommandFlag>
               <CommandFlag>DynamicVisibility</CommandFlag>
           If you do not want an image next to your command, remove the Icon node /> -->
-      <Button guid="guidPublishToProGetCommandPackageCmdSet" id="PublishToProGetCommandId" priority="0x0100" type="Button">
-        <Parent guid="guidPublishToProGetCommandPackageCmdSet" id="ProGetMenuGroup" />
+      <Button guid="guidPushToProGetCommandPackageCmdSet" id="PushToProGetCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidPushToProGetCommandPackageCmdSet" id="ProGetMenuGroup" />
         <Icon guid="MonikersGuid" id="ProGetIcon" />
         <CommandFlag>IconIsMoniker</CommandFlag>
-        <CommandFlag>FixMenuController</CommandFlag>
         <Strings>
-          <ButtonText>Publish to ProGet...</ButtonText>
+          <ButtonText>Push to ProGet...</ButtonText>
         </Strings>
       </Button>
     </Buttons>
@@ -66,12 +65,12 @@
 
   <Symbols>
     <!-- This is the package guid. -->
-    <GuidSymbol name="guidPublishToProGetCommandPackage" value="{190e602a-999a-472a-9966-a3c6524a177f}" />
+    <GuidSymbol name="guidPushToProGetCommandPackage" value="{190e602a-999a-472a-9966-a3c6524a177f}" />
 
     <!-- This is the guid used to group the menu commands together -->
-    <GuidSymbol name="guidPublishToProGetCommandPackageCmdSet" value="{4fa54517-6bdb-4820-a486-bddc6933973a}">
+    <GuidSymbol name="guidPushToProGetCommandPackageCmdSet" value="{4fa54517-6bdb-4820-a486-bddc6933973a}">
       <IDSymbol name="ProGetMenuGroup" value="0x1020" />
-      <IDSymbol name="PublishToProGetCommandId" value="0x0100" />
+      <IDSymbol name="PushToProGetCommandId" value="0x0100" />
     </GuidSymbol>
 
     <GuidSymbol name="MonikersGuid" value="{f390cdfd-14c0-4009-8fc2-2990c0d78d0c}">

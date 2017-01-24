@@ -15,20 +15,20 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Media;
 
-namespace PublishToProGet
+namespace PushToProGet
 {
     /// <summary>
-    /// Interaction logic for PublishToProGetWizard.xaml
+    /// Interaction logic for PushToProGetWizard.xaml
     /// </summary>
-    public partial class PublishToProGetWizard : System.Windows.Window
+    public partial class PushToProGetWizard : System.Windows.Window
     {
         private readonly IVsProject Project;
         private readonly EnvDTE.Project dteProject;
         private readonly IServiceProvider ServiceProvider;
-        private readonly PublishToProGetSettings Settings;
+        private readonly PushToProGetSettings Settings;
         internal readonly UPackMetadata Metadata = new UPackMetadata();
 
-        internal PublishToProGetWizard(IVsProject project, IServiceProvider serviceProvider)
+        internal PushToProGetWizard(IVsProject project, IServiceProvider serviceProvider)
         {
             this.Project = project;
             this.ServiceProvider = serviceProvider;
@@ -36,7 +36,7 @@ namespace PublishToProGet
 
             if (this.ServiceProvider is Microsoft.VisualStudio.Shell.Package package)
             {
-                this.Settings = (PublishToProGetSettings)package.GetDialogPage(typeof(PublishToProGetSettings));
+                this.Settings = (PushToProGetSettings)package.GetDialogPage(typeof(PushToProGetSettings));
                 this.universalFeedURL.Text = this.Settings.DefaultUniversalFeed;
                 this.universalFeedUser.Text = this.Settings.DefaultUserName;
             }
@@ -332,7 +332,7 @@ namespace PublishToProGet
                         }
                         Dispatcher.Invoke(() =>
                         {
-                            this.status.Content = string.Format("Publishing package to {0}...", universalFeedURL);
+                            this.status.Content = string.Format("Pushing package to {0}...", universalFeedURL);
                             this.progress.Value = 0;
                             this.progress.Maximum = stream.Length;
                         });
@@ -388,7 +388,7 @@ namespace PublishToProGet
                 Dispatcher.Invoke(() =>
                 {
                     this.Closing -= PreventClose;
-                    this.status.Content = "Publish complete!";
+                    this.status.Content = "Done!";
                     this.progress.IsIndeterminate = false;
                     this.progress.Value = this.progress.Maximum = 1;
                 });

@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:PublishToProGet"
-            x:Name="window" x:Class="PublishToProGet.PublishToProGetWizard"
-            mc:Ignorable="d" d:DesignHeight="489" d:DesignWidth="673" Title="Publish to ProGet" WindowStartupLocation="CenterOwner"
+             xmlns:local="clr-namespace:PushToProGet"
+            x:Name="window" x:Class="PushToProGet.PushToProGetWizard"
+            mc:Ignorable="d" d:DesignHeight="489" d:DesignWidth="673" Title="Push to ProGet" WindowStartupLocation="CenterOwner"
             Icon="{DynamicResource ProGetIcon}" SizeToContent="WidthAndHeight" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -143,7 +143,7 @@
                     <Label x:Name="confirmPackageDescription" Grid.Column="1" Grid.Row="11" FontFamily="Karla" />
                 </Grid>
             </ScrollViewer>
-            <local:WizardFooter PrimaryButtonLabel="Publish" PrimaryButtonClicked="Page4_Publish" TabIndex="1" Grid.Row="2" SecondaryButtonLabel="Previous" SecondaryButtonClicked="Page4_Previous"/>
+            <local:WizardFooter PrimaryButtonLabel="Push" PrimaryButtonClicked="Page4_Publish" TabIndex="1" Grid.Row="2" SecondaryButtonLabel="Previous" SecondaryButtonClicked="Page4_Previous"/>
         </Grid>
         <Grid x:Name="page5" Visibility="Hidden">
             <Grid.RowDefinitions>
@@ -152,7 +152,7 @@
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <local:WizardHeader Text="Publishing..."/>
+            <local:WizardHeader Text="Pushing..."/>
             <Label x:Name="status" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="Building project..." Grid.Row="1" FontFamily="Karla" />
             <ProgressBar x:Name="progress" IsIndeterminate="True" Grid.Row="2"/>
         </Grid>

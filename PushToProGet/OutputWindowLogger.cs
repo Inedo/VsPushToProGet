@@ -3,7 +3,7 @@ using Microsoft.Build.Utilities;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell.Interop;
 
-namespace PublishToProGet
+namespace PushToProGet
 {
     internal sealed class OutputWindowLogger : Logger
     {

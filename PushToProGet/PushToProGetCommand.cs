@@ -1,25 +1,22 @@
 ﻿//------------------------------------------------------------------------------
-// <copyright file="PublishToProGetCommand.cs" company="Company">
+// <copyright file="PushToProGetCommand.cs" company="Company">
 //     Copyright (c) Company.  All rights reserved.
 // </copyright>
 //------------------------------------------------------------------------------
 
-using System;
-using System.ComponentModel.Design;
-using System.Globalization;
+using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using System.Windows;
-using Microsoft.VisualStudio;
+using System;
+using System.ComponentModel.Design;
 using System.Runtime.InteropServices;
-using EnvDTE;
 
-namespace PublishToProGet
+namespace PushToProGet
 {
     /// <summary>
     /// Command handler
     /// </summary>
-    internal sealed class PublishToProGetCommand
+    internal sealed class PushToProGetCommand
     {
         /// <summary>
         /// Command ID.
@@ -37,11 +34,11 @@ namespace PublishToProGet
         private readonly Package package;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PublishToProGetCommand"/> class.
+        /// Initializes a new instance of the <see cref="PushToProGetCommand"/> class.
         /// Adds our command handlers for menu (commands must exist in the command table file)
         /// </summary>
         /// <param name="package">Owner package, not null.</param>
-        private PublishToProGetCommand(Package package)
+        private PushToProGetCommand(Package package)
         {
             this.package = package ?? throw new ArgumentNullException("package");
 
@@ -56,7 +53,7 @@ namespace PublishToProGet
         /// <summary>
         /// Gets the instance of the command.
         /// </summary>
-        public static PublishToProGetCommand Instance
+        public static PushToProGetCommand Instance
         {
             get;
             private set;
@@ -79,7 +76,7 @@ namespace PublishToProGet
         /// <param name="package">Owner package, not null.</param>
         public static void Initialize(Package package)
         {
-            Instance = new PublishToProGetCommand(package);
+            Instance = new PushToProGetCommand(package);
         }
 
         /// <summary>
@@ -91,7 +88,7 @@ namespace PublishToProGet
         /// <param name="e">Event args.</param>
         private void MenuItemCallback(object sender, EventArgs e)
         {
-            var wizard = new PublishToProGetWizard(GetSelectedProject(), this.ServiceProvider);
+            var wizard = new PushToProGetWizard(GetSelectedProject(), this.ServiceProvider);
             wizard.Show();
         }
 

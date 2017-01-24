@@ -2,7 +2,7 @@
 using System;
 using System.Text.RegularExpressions;
 
-namespace PublishToProGet
+namespace PushToProGet
 {
     [JsonObject]
     internal sealed class UPackMetadata

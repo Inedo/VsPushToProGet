@@ -1,9 +1,9 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using System.ComponentModel;
 
-namespace PublishToProGet
+namespace PushToProGet
 {
-    public sealed class PublishToProGetSettings : DialogPage
+    public sealed class PushToProGetSettings : DialogPage
     {
         [Category("Defaults")]
         [DisplayName("Universal feed URL")]

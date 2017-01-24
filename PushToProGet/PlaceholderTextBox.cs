@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace PublishToProGet
+namespace PushToProGet
 {
     public class PlaceholderTextBox : TextBox
     {
