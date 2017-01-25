@@ -151,10 +151,12 @@
                 <RowDefinition/>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <local:WizardHeader Text="Pushing..."/>
             <Label x:Name="status" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="Building project..." Grid.Row="1" FontFamily="Karla" />
             <ProgressBar x:Name="progress" IsIndeterminate="True" Grid.Row="2"/>
+            <local:WizardFooter x:Name="page5Footer" PrimaryButtonLabel="Close" PrimaryButtonClicked="Page5_Close" TabIndex="1" Grid.Row="3" Visibility="Collapsed" />
         </Grid>
     </Grid>
 </Window>

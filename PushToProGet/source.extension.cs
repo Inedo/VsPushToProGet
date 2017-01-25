@@ -11,7 +11,7 @@ namespace PushToProGet
         public const string Name = "Push to ProGet";
         public const string Description = @"Push to ProGet Visual Studio extension";
         public const string Language = "en-US";
-        public const string Version = "1.0.0";
+        public const string Version = "1.0.1";
         public const string Author = "Inedo";
         public const string Tags = "";
     }

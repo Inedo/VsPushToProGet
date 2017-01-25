@@ -230,6 +230,7 @@ namespace PushToProGet
                                     this.progress.IsIndeterminate = false;
                                     this.progress.Value = this.progress.Maximum = 1;
                                     this.progress.Foreground = (Brush)this.Resources["ProgressErrorBrush"];
+                                    this.page5Footer.Visibility = System.Windows.Visibility.Visible;
                                 });
                                 return;
                             }
@@ -243,6 +244,7 @@ namespace PushToProGet
                                 this.progress.IsIndeterminate = false;
                                 this.progress.Value = this.progress.Maximum = 1;
                                 this.progress.Foreground = (Brush)this.Resources["ProgressErrorBrush"];
+                                this.page5Footer.Visibility = System.Windows.Visibility.Visible;
                             });
                             return;
                         }
@@ -312,6 +314,7 @@ namespace PushToProGet
                                 this.progress.IsIndeterminate = false;
                                 this.progress.Value = this.progress.Maximum = 1;
                                 this.progress.Foreground = (Brush)this.Resources["ProgressErrorBrush"];
+                                this.page5Footer.Visibility = System.Windows.Visibility.Visible;
                             });
                             return;
                         }
@@ -380,6 +383,7 @@ namespace PushToProGet
                             this.progress.IsIndeterminate = false;
                             this.progress.Value = this.progress.Maximum = 1;
                             this.progress.Foreground = (Brush)this.Resources["ProgressErrorBrush"];
+                            this.page5Footer.Visibility = System.Windows.Visibility.Visible;
                         });
                         return;
                     }
@@ -391,6 +395,7 @@ namespace PushToProGet
                     this.status.Content = "Done!";
                     this.progress.IsIndeterminate = false;
                     this.progress.Value = this.progress.Maximum = 1;
+                    this.page5Footer.Visibility = System.Windows.Visibility.Visible;
                 });
             }, new Tuple<UPackMetadata, string, string, string, string>(this.Metadata, this.packageDirectory.Text, this.universalFeedURL.Text, this.universalFeedUser.Text, this.universalFeedPassword.Password));
         }
@@ -453,6 +458,11 @@ namespace PushToProGet
             this.page4.Visibility = System.Windows.Visibility.Hidden;
             this.page3.Visibility = System.Windows.Visibility.Visible;
             this.packageTitle.Focus();
+        }
+
+        private void Page5_Close(object sender, System.Windows.RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }
