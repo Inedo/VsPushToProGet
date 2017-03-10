@@ -51,6 +51,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DeployExtension>False</DeployExtension>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="EmptyStringCollapseConverter.cs" />
@@ -77,6 +78,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="pg-round.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="proget-icon.ico">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
