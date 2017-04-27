@@ -11,6 +11,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Media;
@@ -363,14 +364,25 @@ namespace PushToProGet
                             this.status.Content = "Waiting for response...";
                             this.progress.IsIndeterminate = true;
                         });
-                        using (var response = (HttpWebResponse)request.GetResponse())
+                        try
                         {
-                            if (response.StatusCode != HttpStatusCode.Created)
+                            using (var response = (HttpWebResponse)request.GetResponse())
                             {
-                                using (var input = new StreamReader(response.GetResponseStream()))
+                                if (response.StatusCode != HttpStatusCode.Created)
                                 {
-                                    throw new Exception(string.Format("{0} {1}\n\n{2}", response.StatusCode, response.StatusDescription, input.ReadToEnd()));
+                                    using (var input = new StreamReader(response.GetResponseStream()))
+                                    {
+                                        throw new Exception(string.Format("{0} {1}\n\n{2}", (int)response.StatusCode, response.StatusDescription, input.ReadToEnd()));
+                                    }
                                 }
+                            }
+                        }
+                        catch (WebException ex) when (ex.Status == WebExceptionStatus.ProtocolError)
+                        {
+                            var response = (HttpWebResponse)ex.Response;
+                            using (var input = new StreamReader(response.GetResponseStream()))
+                            {
+                                throw new Exception(string.Format("{0} {1}\n\n{2}", (int)response.StatusCode, response.StatusDescription, input.ReadToEnd()));
                             }
                         }
                     }
@@ -463,6 +475,20 @@ namespace PushToProGet
         private void Page5_Close(object sender, System.Windows.RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private static readonly Regex UniversalFeedUrl = new Regex(@"^https?://[^/?#]+/upack/[^/?#]+/?$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+        private void CheckUniversalFeedUrl(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.universalFeedURL.Text) || UniversalFeedUrl.IsMatch(this.universalFeedURL.Text))
+            {
+                this.warnNotUniversal.Visibility = System.Windows.Visibility.Collapsed;
+            }
+            else
+            {
+                this.warnNotUniversal.Visibility = System.Windows.Visibility.Visible;
+            }
         }
     }
 }
