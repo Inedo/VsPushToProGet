@@ -202,12 +202,13 @@ namespace PushToProGet
             this.Closing += PreventClose;
             ThreadPool.QueueUserWorkItem(state =>
             {
-                var args = (Tuple<UPackMetadata, string, string, string, string>)state;
+                var args = (Tuple<UPackMetadata, string, string, int, string, string>)state;
                 var metadata = args.Item1;
                 var directoryName = args.Item2;
                 var universalFeedURL = args.Item3;
-                var username = args.Item4;
-                var password = args.Item5;
+                var authType = args.Item4;
+                var username = args.Item5;
+                var password = args.Item6;
 
                 var buffer = new byte[8192];
 
@@ -326,13 +327,27 @@ namespace PushToProGet
                         var request = WebRequest.CreateHttp(universalFeedURL + "/upload");
                         request.Method = HttpMethod.Put.Method;
                         request.ContentType = "application/zip";
-                        if (!string.IsNullOrEmpty(username))
+                        switch (authType)
                         {
-                            var credentialBytes = new byte[Encoding.UTF8.GetByteCount(username) + 1 + Encoding.UTF8.GetByteCount(password)];
-                            var index = Encoding.UTF8.GetBytes(username, 0, username.Length, credentialBytes, 0);
-                            index += Encoding.UTF8.GetBytes(":", 0, 1, credentialBytes, index);
-                            Encoding.UTF8.GetBytes(password, 0, password.Length, credentialBytes, index);
-                            request.Headers.Add(HttpRequestHeader.Authorization, "Basic " + Convert.ToBase64String(credentialBytes));
+                            case 0:
+                                request.UseDefaultCredentials = true;
+                                break;
+                            case 1:
+                            case 2:
+                                if (authType == 1)
+                                {
+                                    password = username;
+                                    username = "api";
+                                }
+                                if (!string.IsNullOrEmpty(username))
+                                {
+                                    var credentialBytes = new byte[Encoding.UTF8.GetByteCount(username) + 1 + Encoding.UTF8.GetByteCount(password)];
+                                    var index = Encoding.UTF8.GetBytes(username, 0, username.Length, credentialBytes, 0);
+                                    index += Encoding.UTF8.GetBytes(":", 0, 1, credentialBytes, index);
+                                    Encoding.UTF8.GetBytes(password, 0, password.Length, credentialBytes, index);
+                                    request.Headers.Add(HttpRequestHeader.Authorization, "Basic " + Convert.ToBase64String(credentialBytes));
+                                }
+                                break;
                         }
                         Dispatcher.Invoke(() =>
                         {
@@ -409,7 +424,7 @@ namespace PushToProGet
                     this.progress.Value = this.progress.Maximum = 1;
                     this.page5Footer.Visibility = System.Windows.Visibility.Visible;
                 });
-            }, new Tuple<UPackMetadata, string, string, string, string>(this.Metadata, this.packageDirectory.Text, this.universalFeedURL.Text, this.universalFeedUser.Text, this.universalFeedPassword.Password));
+            }, new Tuple<UPackMetadata, string, string, int, string, string>(this.Metadata, this.packageDirectory.Text, this.universalFeedURL.Text, this.universalFeedAuthType.SelectedIndex, this.universalFeedAuthType.SelectedIndex == 1 ? this.universalFeedApiKey.Text : this.universalFeedUser.Text, this.universalFeedPassword.Password));
         }
 
         private static void PreventClose(object sender, CancelEventArgs e)
@@ -488,6 +503,25 @@ namespace PushToProGet
             else
             {
                 this.warnNotUniversal.Visibility = System.Windows.Visibility.Visible;
+            }
+        }
+
+        private void AuthType_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            switch (this.universalFeedAuthType.SelectedIndex)
+            {
+                case 0:
+                    this.apiKeyAuth.Visibility = System.Windows.Visibility.Collapsed;
+                    this.userPasswordAuth.Visibility = System.Windows.Visibility.Collapsed;
+                    break;
+                case 1:
+                    this.apiKeyAuth.Visibility = System.Windows.Visibility.Visible;
+                    this.userPasswordAuth.Visibility = System.Windows.Visibility.Collapsed;
+                    break;
+                case 2:
+                    this.apiKeyAuth.Visibility = System.Windows.Visibility.Collapsed;
+                    this.userPasswordAuth.Visibility = System.Windows.Visibility.Visible;
+                    break;
             }
         }
     }

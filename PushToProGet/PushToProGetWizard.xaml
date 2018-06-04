@@ -19,7 +19,7 @@
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
@@ -32,11 +32,38 @@
             <local:PlaceholderTextBox x:Name="universalFeedURL" TextWrapping="Wrap" Grid.Column="1" Padding="0,4" TabIndex="1" Grid.Row="1" VerticalAlignment="Center" Margin="0,0,35,0" TextChanged="CheckUniversalFeedUrl"/>
             <Label Content="http://proget-server/upack/FeedName" Grid.Column="1" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" FontStyle="Italic" IsHitTestVisible="False" Visibility="{Binding ShouldShowPlaceholder, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=universalFeedURL}" Grid.Row="1" VerticalAlignment="Center" />
             <Label x:Name="warnNotUniversal" Content="⚠ This doesn't look like a Universal feed URL." Grid.Column="1" Grid.Row="2" FontFamily="Karla" Foreground="#FFEE9D66" Visibility="Visible" />
-            <Label Content="Username" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,4,0" Grid.Row="3" FontFamily="Karla"/>
-            <local:PlaceholderTextBox x:Name="universalFeedUser" TextWrapping="Wrap" Grid.Column="1" Padding="0,4" TabIndex="2" Grid.Row="3" VerticalAlignment="Center" Margin="0,0,35,0"/>
-            <Label Content="Anonymous" Grid.Column="1" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" FontStyle="Italic" IsHitTestVisible="False" Visibility="{Binding ShouldShowPlaceholder, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=universalFeedUser}" Grid.Row="3" VerticalAlignment="Center" />
-            <Label Content="Password" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,4,0" Grid.Row="4" FontFamily="Karla"/>
-            <PasswordBox x:Name="universalFeedPassword" Grid.Column="1" Padding="0,4" TabIndex="3" Grid.Row="4" VerticalAlignment="Center" Margin="0,0,35,0"/>
+            <Label Content="Authentication" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,4,0" Grid.Row="3" FontFamily="Karla"/>
+            <ComboBox Grid.Column="1" Grid.Row="3" Margin="0,0,35,0" Padding="4" VerticalAlignment="Center" SelectedIndex="2" x:Name="universalFeedAuthType" SelectionChanged="AuthType_SelectionChanged">
+                <ComboBoxItem>Use current Windows account for authentication</ComboBoxItem>
+                <ComboBoxItem>Specify API Key...</ComboBoxItem>
+                <ComboBoxItem>Specify Username/Password...</ComboBoxItem>
+            </ComboBox>
+            <Grid Grid.Row="4" Grid.ColumnSpan="2" x:Name="apiKeyAuth" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Content="API Key" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,4,0" Grid.Row="0" FontFamily="Karla"/>
+                <TextBox x:Name="universalFeedApiKey" TextWrapping="Wrap" Grid.Column="1" Padding="0,4" TabIndex="2" Grid.Row="0" VerticalAlignment="Center" Margin="0,0,35,0"/>
+            </Grid>
+            <Grid Grid.Row="4" Grid.ColumnSpan="2" x:Name="userPasswordAuth">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Username" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,4,0" Grid.Row="0" FontFamily="Karla"/>
+                <local:PlaceholderTextBox x:Name="universalFeedUser" TextWrapping="Wrap" Grid.Column="1" Padding="0,4" TabIndex="2" Grid.Row="0" VerticalAlignment="Center" Margin="0,0,35,0"/>
+                <Label Content="Anonymous" Grid.Column="1" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" FontStyle="Italic" IsHitTestVisible="False" Visibility="{Binding ShouldShowPlaceholder, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=universalFeedUser}" Grid.Row="0" VerticalAlignment="Center" />
+                <Label Content="Password" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,4,0" Grid.Row="1" FontFamily="Karla"/>
+                <PasswordBox x:Name="universalFeedPassword" Grid.Column="1" Padding="0,4" TabIndex="3" Grid.Row="1" VerticalAlignment="Center" Margin="0,0,35,0"/>
+            </Grid>
             <Label Content="The default values for this page can be edited in Tools &gt; Options." HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,4,0" Grid.Row="6" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" FontStyle="Italic" Grid.ColumnSpan="2"/>
             <local:WizardFooter Grid.Row="6" Grid.ColumnSpan="2" TabIndex="4" PrimaryButtonClicked="Page1_Next" Text="The default values for this page can be edited in Tools &gt; Options" PrimaryButtonLabel="Next" />
         </Grid>
